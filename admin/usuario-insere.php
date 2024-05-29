@@ -1,8 +1,18 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
 require_once "../inc/funcoes-usuarios.php";
-if(isset($_POST['inserir']))
-	echo"ok!";
+if(isset($_POST['inserir'])){
+//Capturando os dados digitados
+$nome = $_POST ['nome'];
+$email = $_POST ['email'];
+$tipo = $_POST ['tipo'];
+
+//Capturando a senha e a codificando
+$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+echo $nome, $email, $tipo, $senha;
+inserirUsuario($conexao, $nome, $email, $tipo, $senha);
+header("location:usuarios.php");
+}
 ?>
 
 
