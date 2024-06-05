@@ -1,5 +1,7 @@
 <?php
 require_once "../inc/funcoes-usuarios.php";
+verificaAcesso();
+verificarNivel();
 
 // Obter (DA URL) o id do usuário que será excluído
 $id = $_GET['id'];

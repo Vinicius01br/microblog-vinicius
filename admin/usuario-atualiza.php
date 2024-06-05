@@ -1,6 +1,8 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
 require_once "../inc/funcoes-usuarios.php";
+verificaAcesso();
+verificarNivel();
 
 /* Pegando o valor do parâmetro id vindo da URL */
 $id = $_GET['id'];
@@ -8,6 +10,7 @@ $id = $_GET['id'];
 /* Executando a função com o id e recuperando os dados
 do usuário selecionado */
 $dadosUsuario = lerUmUsuario($conexao, $id);
+
 
 if(isset($_POST['atualizar'])){
 	$nome = $_POST['nome'];

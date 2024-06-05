@@ -53,3 +53,11 @@ function buscarUsuario($conexao, $email)
     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
     return mysqli_fetch_assoc($resultado);
 }
+
+function verificarNivel(){
+    if($_SESSION['tipo']!= "admin"){
+        header("location:nao-autorizado.php");
+        exit;
+
+    }
+}
