@@ -1,26 +1,28 @@
-# Comandos SQL para Modelagem Física
+# Modelagem Física
 
-Implanta o banco de dados no servidor/back-end.
+Implantar o banco de dados no servidor/back-end.
 
 ## Comandos SQL para modelagem
 
 ### Criar o banco de dados
+
 ```sql
-CREATE DATABASE microblog_vinicius CHARACTER SET utf8mb4;
+CREATE DATABASE microblog_tiago CHARACTER SET utf8mb4;
 ```
-### Criar tabela de usúarios
+
+### Criar tabela de usuários
 
 ```sql
 CREATE TABLE usuarios(
-    id INT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45) NOT NULL,
-    email VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     tipo ENUM('admin','editor') NOT NULL
 );
-```
 
-### Criar tabela de NOTICIAS
+```
+### Criar tabela de notícias
 
 ```sql
 CREATE TABLE noticias(
@@ -33,14 +35,16 @@ CREATE TABLE noticias(
     usuario_id INT NOT NULL
 );
 ```
+
 ### Criar o relacionamento
-Utilizamos uma constraint (restrição) para criar a relação
-entre as tabelas através das chaves **primaria** e **estrangeira**
+
+Utilizamos uma `constraint` (restrição) para criar a relação entre as tabelas através das chaves **primária** e **estrangeira**.
 
 ```sql
+-- ALTER TABLE serve para modificar a estrutura da tabela
 ALTER TABLE noticias
-ADD CONSTRAINT fk_noticias_usuarios
-FOREIGN KEY (usuario_id) REFERENCES usuarios(id);
-
+    ADD CONSTRAINT fk_noticias_usuarios
+    FOREIGN KEY (usuario_id) REFERENCES usuarios (id);
 ```
+
 
