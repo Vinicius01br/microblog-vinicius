@@ -6,7 +6,7 @@ Necessário para que o Microblog possa usar o MySQL */
 $servidor = "localhost";
 $usuario = "root";
 $senha = "";
-$banco = "microblog_tiago";
+$banco = "microblog_vinicius";
 
 // Função para conexão com o servidor de banco de dados
 $conexao = mysqli_connect($servidor, $usuario, $senha, $banco);
