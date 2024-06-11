@@ -1,11 +1,13 @@
 <?php
 require "conecta.php";
 
-function formataData($data){
+function formataData($data)
+{
     return date("d/m/Y H:i", strtotime($data));
 }
 
-function upload($arquivo){
+function upload($arquivo)
+{
 
     /* Array para validação dos tipos permitidos */
     $tiposValidos = [
@@ -14,7 +16,7 @@ function upload($arquivo){
 
     /* Verificando se o tipo do arquivo NÃO É 
     um dos existentes no array tiposValidos */
-    if( !in_array($arquivo['type'], $tiposValidos) ){
+    if (!in_array($arquivo['type'], $tiposValidos)) {
         echo "<script> 
                 alert('Formato inválido!');
                 history.back();
@@ -30,7 +32,7 @@ function upload($arquivo){
     $temporario = $arquivo['tmp_name'];
 
     /* Definindo da pasta de destino + nome do arquivo da imagem */
-    $destino = "../imagens/".$nome;
+    $destino = "../imagens/" . $nome;
 
     /* Movendo o arquivo/imagem da área temporária
     para a pasta de destino indicada (imagens) */
@@ -38,7 +40,13 @@ function upload($arquivo){
 }
 
 function inserirNoticia(
-    $conexao, $titulo, $texto, $resumo, $nomeImagem, $usuarioId){
+    $conexao,
+    $titulo,
+    $texto,
+    $resumo,
+    $nomeImagem,
+    $usuarioId
+) {
 
     $sql = "INSERT INTO noticias(
         titulo, texto, resumo, imagem, usuario_id
@@ -49,7 +57,8 @@ function inserirNoticia(
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 }
 
-function lerNoticias($conexao, $idUsuario, $tipoUsuario){
+function lerNoticias($conexao, $idUsuario, $tipoUsuario)
+{
     $sql = "SELECT 
                 noticias.id, 
                 noticias.titulo, 
@@ -60,13 +69,43 @@ function lerNoticias($conexao, $idUsuario, $tipoUsuario){
             ORDER BY data DESC";
 
     $resultado = mysqli_query($conexao, $sql)
-                or die(mysqli_error($conexao));
+        or die(mysqli_error($conexao));
 
     return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 }
 
-function lerUmaNoticia($conexao){}
+function lerUmaNoticia($conexao, $idNoticia, $idUsuario, $tipoUsuario)
+{
+    if ($tipoUsuario == 'admin') {
+        $sql = " SELECT * FROM noticias WHERE id = $idNoticia";
+    } else {
+        $sql = " SELECT * FROM noticias 
+        WHERE id = $idNoticia AND usuario_id = $idUsuario";
+    }
+    $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+    return mysqli_fetch_assoc($resultado);
+}
 
-function atualizarNoticia($conexao){}
+function atualizarNoticia($conexao, $titulo, $texto, $resumo, $imagem, $idNoticia, $idUsuario, $tipoUsuario)
+{
+    if ($tipoUsuario == 'admin'){
+        $sql ="UPDATE noticias SET 
+        titulo = '$titulo',
+        texto = '$texto',
+        resumo = '$resumo',
+        imagem = '$imagem'
+        WHERE id = $idNoticia";
+    } else {
 
-function excluirNoticia($conexao){}
+        $sql ="UPDATE noticias SET 
+        titulo = '$titulo',
+        texto = '$texto',
+        resumo = '$resumo',
+        imagem = '$imagem'
+        WHERE  id =  $idNoticia AND usuario_id = $idUsuario";    
+}
+mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+}
+
+function excluirNoticia($conexao){
+}

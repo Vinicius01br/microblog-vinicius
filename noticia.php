@@ -1,5 +1,7 @@
 <?php
+require "inc/cabecalho.php";
 require "inc/cabecalho.php"; 
+
 ?>
 
 
