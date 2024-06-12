@@ -1,8 +1,6 @@
 <?php 
-require_once "../inc/cabecalho-admin.php";
+require_once "/inc/cabecalho-admin.php";
 ?>
-
-
 <article class="p-5 my-4 rounded-3 bg-white shadow">
     <div class="container-fluid py-1">        
         <h2 class="display-4">

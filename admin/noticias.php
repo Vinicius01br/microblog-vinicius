@@ -1,7 +1,9 @@
 <?php // noticias.php
-require_once "../inc/cabecalho-admin.php";
-require_once "../inc/funcoes-noticias.php";
+require_once "/inc/cabecalho-admin.php";
+require_once "/inc/funcoes-noticias.php";
 
+$idNoticia = $_GET['id'];
+$dadosNoticia = lerNoticiaCompleta($conexao, $id);
 // Pegando o id do usuário logado
 $idUsuario = $_SESSION['id'];
 
